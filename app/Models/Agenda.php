@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Agenda extends Model
 {
     protected $table = "agendas";
-    protected $fillable = ["user_id", "title", "description", "date", "status"];
+    protected $fillable = ["user_id", "image", "title", "description", "date", "status"];
 }

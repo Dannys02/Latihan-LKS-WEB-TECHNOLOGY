@@ -26,7 +26,7 @@
         <br /><br />
 
         <div>
-            <label for="email">Email :</label>
+            <label for="password">Password :</label>
             <input type="password" name="password" placeholder="Tulis Password" autocomplete="new_password"><br />
             @error('password')
                 <small style="color: red;">{{ $message }}</small>
@@ -34,7 +34,7 @@
         </div>
         <br /><br />
 
-        <button type="submit">Kirim</button>
+        <button type="submit">Masuk</button>
     </form>
 
     <p>Belum ada akun? <a href="/register">Register dulu!</a></p>

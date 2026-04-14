@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
+            $table->string("image")->nullable();
             $table->string("title");
             $table->text("description");
             $table->date("date");
-            $table->enum("status", ["pending", "done"])->default("pending");
+            $table->enum("status", ["pending", "sedang berlangsung", "selesai", "dibatalkan"])->default("pending");
 
             // Agenda ini milik WHO?
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
