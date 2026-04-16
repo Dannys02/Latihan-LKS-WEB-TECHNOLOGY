@@ -14,8 +14,22 @@
                     <input type="text" name="title" value="{{ old('title', $agenda->title) }}" placeholder="Tulis judul"
                         class="mt-1 block w-full p-2 border rounded-md shadow-sm @error('title') border-red-500 @else border-gray-300 @enderror focus:ring-blue-500 focus:border-blue-500" />
                     @error('title')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mb-1">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tag</label>
+
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        @foreach ($tags as $tag)
+                            <label>
+                                <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}"
+                                    {{ $agenda->tags->contains($tag->id) ? 'checked' : '' }}>
+                                {{ $tag->name_tag }}
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
 
                 <div>

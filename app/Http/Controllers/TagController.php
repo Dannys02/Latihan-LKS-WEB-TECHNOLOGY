@@ -19,7 +19,8 @@ class TagController extends Controller
         $tag = $request->all();
         $tag['user_id'] = Auth::id();
         Tag::create([
-            'name_tag' => $request->name_tag
+            'name_tag' => $request->name_tag,
+            'user_id' => Auth::id(),
         ]);
         return redirect()->route('tags.index')->with('success', 'Berhasil tambah tag');
     }
@@ -36,7 +37,8 @@ class TagController extends Controller
         $tags = $request->all();
         $tag = Tag::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $tag->update([
-            'name_tag' => $request->name_tag
+            'name_tag' => $request->name_tag,
+            'user_id' => Auth::id()
         ]);
         return redirect()->route('tags.index')->with('success', 'Berhasil update tag');
     }

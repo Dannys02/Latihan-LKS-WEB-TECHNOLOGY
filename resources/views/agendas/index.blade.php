@@ -43,7 +43,18 @@
                         </div>
 
                         <h2 class="text-lg font-bold text-gray-800 leading-tight mb-1 truncate">{{ $agenda->title }}</h2>
-                        <p class="text-gray-600 text-sm line-clamp-2 mb-4 h-10">{{ $agenda->description }}</p>
+                        <p class="text-gray-600 text-sm line-clamp-2 mb-1 h-10">{{ $agenda->description }}</p>
+
+                        <div class="mb-4 flex flex-wrap gap-2">
+                            @foreach ($agenda->tags as $tag)
+                                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">
+                                    {{ $tag->name_tag }}
+                                </span>
+                            @endforeach
+                            @if ($agenda->tags->isEmpty())
+                                <span class="text-gray-400 text-xs">Tidak ada tag</span>
+                            @endif
+                        </div>
 
                         <div class="flex gap-2 pt-3 border-t border-gray-100">
                             <a href="{{ route('agendas.edit', $agenda->id) }}"

@@ -18,6 +18,19 @@
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700">Tag</label>
+
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        @foreach ($tags as $tag)
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}">
+                                <span>{{ $tag->name_tag }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-700">Tanggal</label>
                     <input type="date" name="date" value="{{ old('date') }}"
                         class="mt-1 block w-full p-2 border rounded-md shadow-sm @error('date') border-red-500 @else border-gray-300 @enderror focus:ring-blue-500 focus:border-blue-500" />
@@ -32,9 +45,11 @@
                         class="mt-1 block w-full p-2 border rounded-md shadow-sm @error('status') border-red-500 @else border-gray-300 @enderror focus:ring-blue-500 focus:border-blue-500">
                         <option value="">Pilih status</option>
                         <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="sedang berlangsung" {{ old('status') == 'sedang berlangsung' ? 'selected' : '' }}>Sedang Berlangsung</option>
+                        <option value="sedang berlangsung" {{ old('status') == 'sedang berlangsung' ? 'selected' : '' }}>
+                            Sedang Berlangsung</option>
                         <option value="selesai" {{ old('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                        <option value="dibatalkan" {{ old('status') == 'dibatalkan' ? 'selected' : '' }}>Dibbatalkan</option>
+                        <option value="dibatalkan" {{ old('status') == 'dibatalkan' ? 'selected' : '' }}>Dibbatalkan
+                        </option>
                     </select>
                     @error('status')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

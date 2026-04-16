@@ -12,19 +12,20 @@ class AgendaController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $agendas = Auth::user()->agendas;
+            $agendas = Auth::user()->agendas()->with('tags')->get();
             return view('agendas.index', compact("agendas"));
         }
     }
 
     public function create()
     {
-        return view("agendas.create");
+        $tags = Auth::user()->tags;
+        return view("agendas.create", compact("tags"));
     }
 
     public function store(AgendaRequest $request)
     {
-        $data = $request->all();
+        $data = $request->only(['title', 'description', 'date', 'status']);
 
         // Tambahkan user_id secara manual sebelum insert
         $data['user_id'] = Auth::id();
@@ -36,7 +37,12 @@ class AgendaController extends Controller
             $data['image'] = $filename;
         }
 
-        Agenda::create($data);
+        $agenda = Agenda::create($data);
+
+        // tambah data tag_ids di pivot table
+        if ($request->tag_ids) {
+            $agenda->tags()->attach($request->tag_ids);
+        }
 
         return redirect()->route('agendas.index')->with('success', 'agenda berhasil dibuat');
     }
@@ -49,7 +55,8 @@ class AgendaController extends Controller
     public function edit($id)
     {
         $agenda = Agenda::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-        return view('agendas.edit', compact('agenda'));
+        $tags = Auth::user()->tags;
+        return view('agendas.edit', compact('agenda', 'tags'));
     }
 
     public function update(AgendaRequest $request, $id)
@@ -71,6 +78,7 @@ class AgendaController extends Controller
         }
 
         $agenda->update($data);
+        $agenda->tags()->sync($request->tag_ids ?? []);
 
         return redirect()->route('agendas.index')->with('success', 'berhasil mengedit data agenda');
     }
