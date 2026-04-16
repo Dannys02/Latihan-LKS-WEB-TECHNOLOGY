@@ -27,7 +27,7 @@ class AgendaController extends Controller
         $data = $request->all();
 
         // Tambahkan user_id secara manual sebelum insert
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -48,7 +48,7 @@ class AgendaController extends Controller
 
     public function edit($id)
     {
-        $agenda = Agenda::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        $agenda = Agenda::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         return view('agendas.edit', compact('agenda'));
     }
 
@@ -57,7 +57,7 @@ class AgendaController extends Controller
 
         $data = $request->all();
 
-        $agenda = Agenda::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        $agenda = Agenda::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         if ($request->hasFile('image')) {
             if ($agenda->image && File::exists(public_path('agenda/' . $agenda->image))) {
@@ -77,7 +77,7 @@ class AgendaController extends Controller
 
     public function destroy($id)
     {
-        $agenda = Agenda::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        $agenda = Agenda::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         if ($agenda->image && File::exists(public_path('agenda', $agenda->image))) {
             File::delete(public_path('agenda/' . $agenda->image));

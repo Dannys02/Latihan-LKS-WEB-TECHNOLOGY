@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Agenda;
+use App\Models\Tag;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -36,5 +37,10 @@ class User extends Authenticatable
     public function agendas()
     {
         return $this->hasMany(Agenda::class);
+    }
+
+    public function tags()
+    {
+        return $this->HasMany(Tag::class);
     }
 }

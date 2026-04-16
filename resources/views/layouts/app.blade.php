@@ -10,11 +10,16 @@
 
 <body class="bg-gray-100">
     <nav class="bg-white shadow-md py-4 px-8 flex gap-4">
-        <a href="{{ route('dashboard.user') }}" class="hover:text-blue-500 {{ request()->routeIs('dashboard.user') ? 'text-blue-600' : '' }}">Dashboard</a>
-        <a href="{{ route('agendas.index') }}" class="hover:text-blue-500 {{ request()->routeIs('agendas.*') ? 'text-blue-600' : '' }}">Data Agenda</a>
+        <a href="{{ route('dashboard.user') }}"
+            class="hover:text-blue-500 {{ request()->routeIs('dashboard.user') ? 'text-blue-600' : '' }}">Dashboard</a>
+        <a href="{{ route('agendas.index') }}"
+            class="hover:text-blue-500 {{ request()->routeIs('agendas.*') ? 'text-blue-600' : '' }}">Data Agenda</a>
+        <a href="{{ route('tags.index') }}"
+            class="hover:text-blue-500 {{ request()->routeIs('tags.*') ? 'text-blue-600' : '' }}">Data Tag</a>
         <a href="#" class="hover:text-blue-500">Pengaturan</a>
 
-        <form action="{{ route('logout.user') }}" method="POST" class="ml-auto {{ request()->routeIs('pengaturan.user') ? 'text-blue-600' : '' }}">
+        <form action="{{ route('logout.user') }}" method="POST"
+            class="ml-auto {{ request()->routeIs('pengaturan.user') ? 'text-blue-600' : '' }}">
             @csrf
             <button type="submit" class="text-red-500 font-bold">Logout</button>
         </form>
