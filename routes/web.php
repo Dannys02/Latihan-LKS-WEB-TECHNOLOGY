@@ -21,7 +21,7 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/dashboard')->group(function () {
         Route::get('/user', function () {
-            return view('dashboard.index');
+            return view('users.dashboard.index');
         })->name('dashboard.user');
 
         // CRUD Agenda

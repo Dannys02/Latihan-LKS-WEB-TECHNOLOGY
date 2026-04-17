@@ -13,14 +13,14 @@ class AgendaController extends Controller
     {
         if (Auth::check()) {
             $agendas = Auth::user()->agendas()->with('tags')->get();
-            return view('agendas.index', compact("agendas"));
+            return view('users.agendas.index', compact("agendas"));
         }
     }
 
     public function create()
     {
         $tags = Auth::user()->tags;
-        return view("agendas.create", compact("tags"));
+        return view("users.agendas.create", compact("tags"));
     }
 
     public function store(AgendaRequest $request)
@@ -44,7 +44,7 @@ class AgendaController extends Controller
             $agenda->tags()->attach($request->tag_ids);
         }
 
-        return redirect()->route('agendas.index')->with('success', 'agenda berhasil dibuat');
+        return redirect()->route('users.agendas.index')->with('success', 'agenda berhasil dibuat');
     }
 
     public function show()
@@ -56,7 +56,7 @@ class AgendaController extends Controller
     {
         $agenda = Agenda::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $tags = Auth::user()->tags;
-        return view('agendas.edit', compact('agenda', 'tags'));
+        return view('users.agendas.edit', compact('agenda', 'tags'));
     }
 
     public function update(AgendaRequest $request, $id)
@@ -80,7 +80,7 @@ class AgendaController extends Controller
         $agenda->update($data);
         $agenda->tags()->sync($request->tag_ids ?? []);
 
-        return redirect()->route('agendas.index')->with('success', 'berhasil mengedit data agenda');
+        return redirect()->route('users.agendas.index')->with('success', 'berhasil mengedit data agenda');
     }
 
     public function destroy($id)
@@ -92,6 +92,6 @@ class AgendaController extends Controller
         }
 
         $agenda->delete();
-        return redirect()->route('agendas.index')->with('success', 'berhasil hapus data agenda');
+        return redirect()->route('users.agendas.index')->with('success', 'berhasil hapus data agenda');
     }
 }

@@ -11,7 +11,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Auth::user()->tags;
-        return view('tags.index', compact('tags'));
+        return view('users.tags.index', compact('tags'));
     }
 
     public function store(TagRequest $request)
@@ -22,14 +22,14 @@ class TagController extends Controller
             'name_tag' => $request->name_tag,
             'user_id' => Auth::id(),
         ]);
-        return redirect()->route('tags.index')->with('success', 'Berhasil tambah tag');
+        return redirect()->route('users.tags.index')->with('success', 'Berhasil tambah tag');
     }
 
     public function edit($id)
     {
         $editTag = Tag::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $tags = Auth::user()->tags;
-        return view('tags.index', compact('tags', 'editTag'));
+        return view('users.tags.index', compact('tags', 'editTag'));
     }
 
     public function update(TagRequest $request, $id)
@@ -40,7 +40,7 @@ class TagController extends Controller
             'name_tag' => $request->name_tag,
             'user_id' => Auth::id()
         ]);
-        return redirect()->route('tags.index')->with('success', 'Berhasil update tag');
+        return redirect()->route('users.tags.index')->with('success', 'Berhasil update tag');
     }
 
     public function destroy($id)
@@ -49,6 +49,6 @@ class TagController extends Controller
             ->where('user_id', Auth::id())
             ->firstOrFail();
         $tag->delete();
-        return redirect()->route('tags.index')->with('success', 'Berhasil hapus tag');
+        return redirect()->route('users.tags.index')->with('success', 'Berhasil hapus tag');
     }
 }
